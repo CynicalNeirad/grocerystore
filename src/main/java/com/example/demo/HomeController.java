@@ -21,32 +21,52 @@ public class HomeController {
 
     @GetMapping("/")
     public String getinvintory(Model model) {
-        model.addAttribute(cosmetics, cosmeticsRespository.findAll());
-        model.addAttribute(snacks, snacksRepository.findAll());
-        model.addAttribute(cleanings, cleaningRepository.findAll());
+        double cosmeticSum = 0;
+        for (Cosmetics cosmet :cosmeticsRespository.findAll())
+        {
+            cosmeticSum += cosmet.getPrice() * cosmet.getQuantity();
+            System.out.println(cosmeticSum);
+        }
+        System.out.println(cosmeticSum);
+
+        double snackSum = 0;
+        for (SnacksInv aSnack :snacksRepository.findAll())
+        {
+            snackSum += aSnack.getPrice() * aSnack.getQuantity();
+        }
+        double cleanSum = 0;
+        for (CleaningItems clean :cleaningRepository.findAll())
+        {
+            cleanSum += clean.getPrice() * clean.getQuantity();
+        }
+        model.addAttribute("cosmetics", cosmeticsRespository.findAll());
+        model.addAttribute("cosum",cosmeticSum);
+        model.addAttribute("snacks", snacksRepository.findAll());
+        model.addAttribute("snacksSum", snackSum);
+        model.addAttribute("cleanings", cleaningRepository.findAll());
+        model.addAttribute("cleaningSum", cleanSum);
         return "mainpage";
     }
 
 
     @GetMapping("/addCosmetics")
     public String addCosmetics(Model model) {
-        model.addAttribute("cosmetics", new Cosmetics()):
+        model.addAttribute("cosmetics", new Cosmetics());
         return "cosmeticGet";
     }
     @GetMapping("/addSnacks")
     public String addSnacks(Model model) {
-        model.addAttribute("snacks", new Snacks()):
+        model.addAttribute("snacks", new SnacksInv());
         return "snacksGet";
     }
     @GetMapping("/addCleaning")
     public String addCleaning(Model model) {
-        model.addAttribute(cleanings, new CleaningItems());
-        return "cleaningGet":
-
+        model.addAttribute("cleanings", new CleaningItems());
+        return "cleaningGet";
     }
 
     @PostMapping("/processSnacks")
-    public String processSkills(@Valid Snacks snacks, BindingResult result) {
+    public String processSkills(@Valid SnacksInv snacks, BindingResult result) {
         if (result.hasErrors()) {
             return "snacksGet";
         }
@@ -63,7 +83,7 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @PostMapping("/processesCosmetics")
+    @PostMapping("/processCosmetics")
     public String processCosmetics(@Valid Cosmetics cosmetics, BindingResult result){
         if (result.hasErrors()) {
             return "cosmeticsGet";
