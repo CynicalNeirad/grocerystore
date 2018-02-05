@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>JBC</title>
 </head>
 <body>
+<table>
+    <th>Snacks:</th>
+    <tr><a th:href="@{/addSnacks}">Add a new snack</a></tr>
+    <tr th:each="snacks : ${snacks}">
+        <td th:text="${snacks.name}"></td>
+        <td th:text="${snacks.price}"></td>
+        <td th:text="${snacks.crunchiness}"></td>
+        <td th:text="${snacks.quantity}"></td>
+    </tr>
+    <td th:text="${snacksSum}"></td>
+    <br/>
+
+
+    <th>Cleaning Supplies:</th>
+    <tr><a th:href="@{/addCleaning}">Add a new Cleaning Supplies</a></tr>
+    <tr th:each="cleanings : ${cleanings}">
+        <td th:text="${cleanings.name}"></td>
+        <td th:text="${cleanings.strength}"></td>
+        <td th:text="${cleanings.price}"></td>
+        <td th:text="${cleanings.quantity}"></td>
+    </tr>
+    <td th:text="${cleaningSum}"></td>
+    <br/>
+
+    <th>Cosmetics:</th>
+    <tr><a th:href="@{/addCosmetics}">Add a new Cosmetic Item</a></tr>
+    <tr th:each="cosmetics : ${cosmetics}">
+        <td th:text="${cosmetics.name}"></td>
+        <td th:text="${cosmetics.brand}"></td>
+        <td th:text="${cosmetics.price}"></td>
+        <td th:text="${cosmetics.popularity}"></td>
+        <td th:text="${cosmetics.quantity}"></td>
+        <!--<td th:text="$[cosmetics.price*cosmetics.quantity"}></td>-->
+    </tr>
+    <tr>
+    <td th:text="${cosum}"></td>
+    </tr>
+    <br/>
+
+</table>
+
 
 </body>
 </html>

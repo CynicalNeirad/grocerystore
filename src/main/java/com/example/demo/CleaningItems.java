@@ -17,6 +17,16 @@ public class CleaningItems {
     private Double price;
     private int quantity;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
+
     public long getId() {
         return id;
     }
